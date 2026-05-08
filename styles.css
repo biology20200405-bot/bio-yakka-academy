@@ -1,0 +1,749 @@
+/* ============================================
+   バイオ薬科アカデミー LP — Stylesheet
+   構成：9セクション全部画像、③⑨にHTMLオーバーレイ、
+   ④⑤の間にCTA、ヘッダー・フッターHTML
+   モバイルファースト、768px以上でPCレイアウト
+   ============================================ */
+
+/* ========== CSS Variables ========== */
+:root {
+  /* メインアクセント */
+  --color-sakura-deep: #B85F76;
+  --color-sakura: #D88A99;
+  --color-sakura-tint: #FBE3E8;
+  --color-sakura-bg: #FFF0F4;
+
+  /* テキスト */
+  --color-text: #1F2A44;
+  --color-text-mute: #5A6478;
+
+  /* ベース */
+  --color-white: #FFFFFF;
+  --color-bg: #FAFAF7;
+  --color-border: #E5E2DA;
+
+  /* LINE公式 */
+  --color-line: #06C755;
+
+  /* タイポ */
+  --font-base: 'M PLUS Rounded 1c', 'Hiragino Maru Gothic ProN', 'Hiragino Sans', 'Yu Gothic', sans-serif;
+
+  /* レイアウト */
+  --container-max: 1100px;
+  --section-img-max: 768px;
+  --header-height: 60px;
+}
+
+/* ========== Reset & Base ========== */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+  font-size: 16px;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  font-family: var(--font-base);
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 1.8;
+  color: var(--color-text);
+  background: var(--color-sakura-bg);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+img, picture, svg, iframe {
+  max-width: 100%;
+  display: block;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button {
+  font-family: inherit;
+  cursor: pointer;
+  border: none;
+  background: none;
+}
+
+/* ========== Container ========== */
+.container {
+  width: 100%;
+  max-width: var(--container-max);
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+/* ========== Header ========== */
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: rgba(220, 238, 245, 0.85);
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid rgba(173, 210, 222, 0.3);
+  box-shadow: 0 2px 12px rgba(173, 210, 222, 0.2);
+  height: 60px;
+  width: 100%;
+  overflow: hidden;
+}
+
+/* 桜の花びらが流れるアニメーション */
+.header-petals {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+  z-index: 1;
+}
+
+.petal {
+  position: absolute;
+  width: 14px;
+  height: 14px;
+  opacity: 0;
+}
+
+.petal-1 { top: 10px; animation: header-drift 16s linear infinite -3s; }
+.petal-2 { top: 32px; animation: header-drift 13s linear infinite -8s; }
+.petal-3 { top: 20px; animation: header-drift 19s linear infinite -14s; }
+
+@keyframes header-drift {
+  0% { transform: translateX(calc(100vw + 30px)) rotate(0); opacity: 0; }
+  8%, 92% { opacity: 0.7; }
+  100% { transform: translateX(-30px) rotate(540deg); opacity: 0; }
+}
+
+/* 雲：静的に配置（動かさない） */
+.cloud {
+  position: absolute;
+  height: auto;
+  opacity: 0.55;
+}
+
+.cloud-1 {
+  width: 70px;
+  top: 4px;
+  left: 18%;
+}
+
+.cloud-2 {
+  width: 55px;
+  top: 28px;
+  right: 22%;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .petal { animation: none !important; display: none; }
+}
+
+/* タグライン */
+.brand-tagline {
+  font-size: 10px;
+  color: var(--color-sakura-deep);
+  font-weight: 500;
+  margin-left: 8px;
+  white-space: nowrap;
+  letter-spacing: 0.02em;
+}
+
+@media (max-width: 480px) {
+  .brand-tagline { display: none; }
+}
+
+@media (min-width: 768px) {
+  .brand-tagline { font-size: 11px; margin-left: 12px; }
+}
+
+.header-inner {
+  box-sizing: border-box;
+  position: relative;
+  z-index: 2;
+  height: 60px;
+  width: 100%;
+  display: flex !important;
+  flex-direction: row !important;
+  flex-wrap: nowrap !important;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 0 12px;
+  max-width: var(--container-max);
+  margin: 0 auto;
+}
+
+.brand {
+  display: inline-flex !important;
+  align-items: center;
+  flex-shrink: 0;
+  flex-grow: 0;
+  height: 60px;
+}
+
+.brand img.logo {
+  height: 46px !important;
+  max-height: 46px !important;
+  width: auto !important;
+  max-width: 60vw !important;
+  display: block;
+  object-fit: contain;
+}
+
+.nav-pc { display: none !important; }
+
+.btn-header {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  background: linear-gradient(135deg, #FF8DB2, #EC4F89);
+  color: var(--color-white);
+  padding: 8px 14px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 700;
+  white-space: nowrap;
+  box-shadow: 0 2px 8px rgba(236, 79, 137, 0.3);
+}
+
+.sakura-icon-sm { flex-shrink: 0; }
+
+.mobile-controls {
+  display: flex !important;
+  flex-direction: row !important;
+  align-items: center;
+  gap: 6px;
+  flex-shrink: 0;
+  flex-grow: 0;
+  height: 60px;
+}
+.btn-mobile {
+  padding: 6px 10px;
+  font-size: 11px;
+  white-space: nowrap;
+  display: inline-flex !important;
+  align-items: center;
+  height: 32px;
+}
+
+.hamburger {
+  width: 32px;
+  height: 32px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+  padding: 0;
+}
+
+.hamburger span {
+  display: block;
+  width: 22px;
+  height: 2px;
+  background: var(--color-text);
+  border-radius: 2px;
+  transition: transform 0.2s, opacity 0.2s;
+}
+
+.hamburger.active span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+.hamburger.active span:nth-child(2) { opacity: 0; }
+.hamburger.active span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+.nav-mobile {
+  display: none;
+  position: fixed;
+  top: 60px;
+  left: 0;
+  right: 0;
+  background: #FFF0F4;
+  padding: 8px 16px;
+  border-bottom: 1px solid var(--color-border);
+  z-index: 99;
+  box-shadow: 0 6px 16px rgba(0,0,0,0.08);
+}
+
+.nav-mobile.open { display: block; }
+
+.nav-mobile a {
+  display: block;
+  padding: 14px 8px;
+  font-size: 15px;
+  font-weight: 500;
+  color: var(--color-text);
+  border-bottom: 0.5px solid var(--color-border);
+}
+
+.nav-mobile a:last-child { border-bottom: none; }
+
+@media (min-width: 768px) {
+  .header-inner { padding: 0 24px; }
+  .brand img.logo { height: 52px !important; max-height: 52px !important; }
+  .nav-pc {
+    display: flex !important;
+    align-items: center;
+    gap: 22px;
+  }
+  .nav-pc a {
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--color-text);
+    transition: opacity 0.2s;
+  }
+  .nav-pc a:hover { opacity: 0.7; }
+  .nav-pc .btn-header { font-size: 13px; padding: 9px 18px; }
+  .mobile-controls { display: none !important; }
+  .nav-mobile { display: none !important; }
+  .nav-mobile.open { display: none !important; }
+}
+
+/* ========== Sections (画像ベース) ========== */
+main { background: var(--color-sakura-bg); }
+
+.section-img { background: var(--color-sakura-bg); }
+
+.section-img > img {
+  width: 100%;
+  height: auto;
+  display: block;
+  margin: 0 auto;
+  max-width: var(--section-img-max);
+}
+
+/* ========== Sections with HTML Overlay (③ 紹介動画 / ⑨ フォーム) ========== */
+.section-img.has-overlay {
+  position: relative;
+  background: var(--color-sakura-bg);
+}
+
+.section-img.has-overlay > img {
+  width: 100%;
+  height: auto;
+  display: block;
+  margin: 0 auto;
+  max-width: var(--section-img-max);
+  position: relative;
+  z-index: 1;
+}
+
+.section-img.has-overlay .overlay {
+  position: absolute;
+  top: 32%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: calc(100% - 32px);
+  max-width: 360px;
+  z-index: 2;
+}
+
+.section-img.has-overlay .overlay > * + * {
+  margin-top: 14px;
+}
+
+@media (min-width: 768px) {
+  .section-img.has-overlay .overlay {
+    max-width: 440px;
+  }
+}
+
+/* ⑨ フォームセクションは縦に長い → セクション自体に余白を確保 */
+#section-9 {
+  padding-bottom: 280px; /* フォーム高さ分の余白 */
+}
+
+#section-9 .overlay { top: 20%; }
+
+@media (min-width: 768px) {
+  #section-9 { padding-bottom: 200px; }
+}
+
+/* ========== Video Wrapper（16:9） ========== */
+.video-wrapper {
+  position: relative;
+  width: 100%;
+  padding-bottom: 56.25%;
+  height: 0;
+  border-radius: 14px;
+  overflow: hidden;
+  background: #1F2A44;
+  box-shadow: 0 6px 18px rgba(31, 42, 68, 0.18);
+}
+
+.video-wrapper iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+
+/* ========== PDF Card ========== */
+.pdf-card {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: var(--color-white);
+  padding: 12px 14px;
+  border-radius: 14px;
+  box-shadow: 0 4px 14px rgba(216, 138, 153, 0.18);
+  border: 1.5px solid #FCE9EE;
+  transition: transform 0.15s, box-shadow 0.15s;
+}
+
+.pdf-card:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 18px rgba(216, 138, 153, 0.25);
+}
+
+.pdf-icon {
+  flex-shrink: 0;
+  display: inline-flex;
+}
+
+.pdf-text {
+  flex: 1;
+  min-width: 0;
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--color-text);
+  line-height: 1.4;
+}
+
+.pdf-arrow {
+  flex-shrink: 0;
+  display: inline-flex;
+}
+
+/* ========== Form Wrapper ========== */
+.form-wrapper {
+  background: var(--color-white);
+  border-radius: 14px;
+  padding: 6px;
+  box-shadow: 0 4px 14px rgba(216, 138, 153, 0.18);
+  border: 1.5px solid #FCE9EE;
+  overflow: hidden;
+  min-height: 120px;
+}
+
+.form-wrapper iframe {
+  width: 100%;
+  border: 0;
+}
+
+/* CTA buttons 以下のレイアウト */
+.overlay-9 .cta-buttons {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+.cta-or {
+  font-size: 12px;
+  color: var(--color-text-mute);
+  text-align: center;
+  margin: 6px 0 4px;
+  position: relative;
+  width: 100%;
+}
+
+.cta-or::before, .cta-or::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  width: 30%;
+  height: 1px;
+  background: var(--color-border);
+}
+.cta-or::before { left: 5%; }
+.cta-or::after { right: 5%; }
+
+/* ========== Mid-CTA Section（④⑤の間） ========== */
+.mid-cta {
+  background: linear-gradient(180deg, #FFF0F4 0%, #FBE3E8 100%);
+  padding: 32px 0;
+}
+
+.mid-cta .container {
+  max-width: 480px;
+}
+
+.cta-label {
+  text-align: center;
+  font-size: 12px;
+  color: var(--color-text);
+  font-weight: 500;
+  margin: 0 0 8px;
+}
+
+.cta-label-line { margin-top: 18px; }
+
+@media (min-width: 768px) {
+  .mid-cta { padding: 48px 0; }
+  .mid-cta .container { max-width: 600px; }
+}
+
+/* ========== Buttons ========== */
+.btn-primary, .btn-line {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
+  padding: 14px 22px;
+  border-radius: 999px;
+  font-size: 15px;
+  font-weight: 700;
+  text-align: center;
+  transition: transform 0.15s, opacity 0.15s, box-shadow 0.15s;
+  text-decoration: none;
+  min-height: 50px;
+}
+
+
+.btn-primary {
+  background: linear-gradient(135deg, #FF8DB2, #EC4F89);
+  color: var(--color-white);
+  box-shadow: 0 4px 14px rgba(236, 79, 137, 0.32);
+}
+
+.btn-line {
+  background: #7AD49B;
+  color: var(--color-white);
+  box-shadow: 0 4px 14px rgba(122, 212, 155, 0.32);
+}
+
+.btn-primary:hover, .btn-line:hover {
+  opacity: 0.92;
+  transform: translateY(-1px);
+  box-shadow: 0 6px 18px rgba(184, 95, 118, 0.4);
+}
+
+.btn-line:hover {
+  box-shadow: 0 6px 18px rgba(6, 199, 85, 0.4);
+}
+
+.btn-primary:active, .btn-line:active {
+  transform: scale(0.98);
+}
+
+/* ========== Footer ========== */
+.site-footer {
+  background: var(--color-text);
+  color: var(--color-white);
+  padding: 36px 0 28px;
+  text-align: center;
+}
+
+.footer-inner {
+  max-width: var(--container-max);
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+.footer-brand {
+  font-size: 17px;
+  font-weight: 700;
+  margin: 0 0 4px;
+}
+
+.footer-tagline {
+  font-size: 13px;
+  opacity: 0.85;
+  margin: 0 0 18px;
+  line-height: 1.6;
+}
+
+.footer-nav {
+  margin: 0 0 16px;
+  font-size: 12px;
+}
+
+.footer-nav a {
+  color: var(--color-white);
+  opacity: 0.85;
+  margin: 0 6px;
+  text-decoration: underline;
+  transition: opacity 0.2s;
+}
+
+.footer-nav a:hover { opacity: 1; }
+
+.footer-nav span {
+  opacity: 0.5;
+}
+
+.footer-copy {
+  font-size: 11px;
+  opacity: 0.6;
+  margin: 0;
+}
+
+/* ========== Legal Pages（特商法・プライバシー） ========== */
+.legal-body { background: var(--color-sakura-bg); }
+
+.legal-header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: rgba(255, 255, 255, 0.95);
+  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
+  border-bottom: 1px solid rgba(216, 138, 153, 0.2);
+  height: 60px;
+  width: 100%;
+}
+
+.legal-header .header-inner {
+  position: relative;
+  height: 60px;
+  padding: 0 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  max-width: var(--container-max);
+  margin: 0 auto;
+  gap: 8px;
+}
+
+.legal-home-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--color-sakura-deep);
+  padding: 8px 12px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.9);
+  border: 1px solid rgba(216, 138, 153, 0.3);
+  white-space: nowrap;
+}
+
+.legal-home-btn:hover { opacity: 0.85; }
+
+.legal-page {
+  padding: 40px 16px 60px;
+  min-height: calc(100vh - 60px - 200px);
+}
+
+.legal-page article {
+  background: var(--color-white);
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 32px 22px;
+  border-radius: 14px;
+  box-shadow: 0 4px 14px rgba(216, 138, 153, 0.1);
+}
+
+.legal-page h1 {
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--color-text);
+  margin-bottom: 24px;
+  text-align: center;
+  padding-bottom: 16px;
+  border-bottom: 2px solid var(--color-sakura-tint);
+  line-height: 1.5;
+}
+
+.legal-page h2 {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--color-sakura-deep);
+  margin: 28px 0 10px;
+  padding-left: 10px;
+  border-left: 4px solid var(--color-sakura);
+  line-height: 1.5;
+}
+
+.legal-page p {
+  font-size: 14px;
+  line-height: 1.95;
+  color: var(--color-text);
+  margin: 0 0 14px;
+}
+
+.legal-page ul, .legal-page ol {
+  font-size: 14px;
+  line-height: 1.95;
+  color: var(--color-text);
+  margin: 8px 0 14px;
+  padding-left: 22px;
+}
+
+.legal-page li { margin-bottom: 4px; }
+
+.legal-page dl { margin: 0; }
+
+.legal-page dt {
+  font-weight: 700;
+  font-size: 14px;
+  color: var(--color-text);
+  margin-top: 18px;
+  padding-bottom: 4px;
+  border-bottom: 1px dotted rgba(216, 138, 153, 0.3);
+}
+
+.legal-page dt:first-child { margin-top: 0; }
+
+.legal-page dd {
+  margin: 8px 0 0 0;
+  padding-left: 4px;
+  font-size: 14px;
+  line-height: 1.85;
+  color: var(--color-text-mute);
+}
+
+.legal-page a {
+  color: var(--color-sakura-deep);
+  text-decoration: underline;
+}
+
+.legal-page .updated {
+  text-align: right;
+  font-size: 12px;
+  color: var(--color-text-mute);
+  margin-top: 32px;
+  padding-top: 16px;
+  border-top: 1px solid var(--color-border);
+}
+
+@media (min-width: 768px) {
+  .legal-page { padding: 60px 24px 80px; }
+  .legal-page article { padding: 56px 48px; }
+  .legal-page h1 { font-size: 28px; margin-bottom: 32px; }
+  .legal-page h2 { font-size: 18px; }
+  .legal-page p, .legal-page dt, .legal-page dd, .legal-page ul, .legal-page ol {
+    font-size: 15px;
+  }
+}
+
+/* ========== Accessibility ========== */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+  html { scroll-behavior: auto; }
+}
+
+a:focus, button:focus {
+  outline: 2px solid var(--color-sakura-deep);
+  outline-offset: 2px;
+}
+
+a:focus:not(:focus-visible), button:focus:not(:focus-visible) {
+  outline: none;
+}
