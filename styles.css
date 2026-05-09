@@ -357,13 +357,13 @@ main { background: var(--color-sakura-bg); }
 
 /* ⑨ フォームセクションは縦に長い → セクション自体に余白を確保 */
 #section-9 {
-  padding-bottom: 280px; /* フォーム高さ分の余白 */
+  padding-bottom: 420px; /* フォーム600px + LINEボタン + バッファ */
 }
 
-#section-9 .overlay { top: 20%; }
+#section-9 .overlay { top: 14%; }
 
 @media (min-width: 768px) {
-  #section-9 { padding-bottom: 200px; }
+  #section-9 { padding-bottom: 300px; }
 }
 
 /* ========== Video Wrapper（16:9） ========== */
