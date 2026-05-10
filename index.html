@@ -59,7 +59,6 @@
     <div class="header-inner">
       <a href="#" class="brand" aria-label="バイオ薬科アカデミー">
         <img src="logo.png" alt="バイオ薬科アカデミー" class="logo">
-        <span class="brand-tagline">薬学部生・国試受験生の味方</span>
       </a>
 
       <nav class="nav-pc" aria-label="メインナビ（PC）">
@@ -95,19 +94,20 @@
           </svg>
           無料相談
         </a>
-        <button class="hamburger" aria-label="メニューを開く" aria-expanded="false" id="hamburger">
+        <button type="button" class="hamburger" aria-label="メニューを開く" aria-expanded="false" id="hamburger">
           <span></span><span></span><span></span>
         </button>
       </div>
     </div>
-
-    <nav class="nav-mobile" id="navMobile" aria-label="メインナビ（スマホ）">
-      <a href="#section-3">紹介動画</a>
-      <a href="#section-5">講師紹介</a>
-      <a href="#section-6">料金プラン</a>
-      <a href="#section-9">無料相談</a>
-    </nav>
   </header>
+
+  <!-- スマホ用ナビ（ヘッダーの外に置くことで backdrop-filter のクリッピングを回避） -->
+  <nav class="nav-mobile" id="navMobile" aria-label="メインナビ（スマホ）">
+    <a href="#section-3">紹介動画</a>
+    <a href="#section-5">講師紹介</a>
+    <a href="#section-6">料金プラン</a>
+    <a href="#section-9">無料相談</a>
+  </nav>
 
   <main>
 
@@ -254,21 +254,31 @@
   <!-- Mobile menu toggle -->
   <script>
     (function(){
-      var btn = document.getElementById('hamburger');
-      var menu = document.getElementById('navMobile');
-      if(!btn || !menu) return;
-      btn.addEventListener('click', function(){
-        var open = menu.classList.toggle('open');
-        btn.classList.toggle('active', open);
-        btn.setAttribute('aria-expanded', open ? 'true' : 'false');
-      });
-      menu.querySelectorAll('a').forEach(function(a){
-        a.addEventListener('click', function(){
-          menu.classList.remove('open');
-          btn.classList.remove('active');
-          btn.setAttribute('aria-expanded', 'false');
+      function init(){
+        var btn = document.getElementById('hamburger');
+        var menu = document.getElementById('navMobile');
+        if(!btn || !menu) { console.warn('[hamburger] element not found'); return; }
+        function toggle(e){
+          if(e) e.preventDefault();
+          var open = menu.classList.toggle('open');
+          btn.classList.toggle('active', open);
+          btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+        }
+        btn.addEventListener('click', toggle);
+        btn.addEventListener('touchend', toggle);
+        menu.querySelectorAll('a').forEach(function(a){
+          a.addEventListener('click', function(){
+            menu.classList.remove('open');
+            btn.classList.remove('active');
+            btn.setAttribute('aria-expanded', 'false');
+          });
         });
-      });
+      }
+      if(document.readyState === 'loading'){
+        document.addEventListener('DOMContentLoaded', init);
+      } else {
+        init();
+      }
     })();
   </script>
 

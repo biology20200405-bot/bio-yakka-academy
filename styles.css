@@ -131,16 +131,30 @@ button {
   opacity: 0.55;
 }
 
+/* スマホ：ヘッダー中央の空きスペース（ロゴと右ボタンの間）に配置 */
 .cloud-1 {
-  width: 70px;
-  top: 4px;
-  left: 18%;
+  width: 50px;
+  top: 6px;
+  left: 38%;
 }
 
 .cloud-2 {
-  width: 55px;
-  top: 28px;
-  right: 22%;
+  width: 42px;
+  top: 30px;
+  left: 52%;
+  right: auto;
+}
+
+/* タブレット */
+@media (min-width: 481px) {
+  .cloud-1 { width: 60px; left: 32%; top: 4px; }
+  .cloud-2 { width: 50px; left: 56%; top: 28px; }
+}
+
+/* PC：ロゴとPCナビの間の中央スペースに配置 */
+@media (min-width: 768px) {
+  .cloud-1 { width: 70px; left: 28%; top: 4px; }
+  .cloud-2 { width: 58px; left: 58%; top: 28px; }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -244,7 +258,14 @@ button {
   align-items: center;
   gap: 5px;
   padding: 0;
+  cursor: pointer;
+  position: relative;
+  z-index: 3;
+  -webkit-tap-highlight-color: rgba(0,0,0,0.1);
+  touch-action: manipulation;
 }
+
+.hamburger span { pointer-events: none; }
 
 .hamburger span {
   display: block;
