@@ -131,30 +131,30 @@ button {
   opacity: 0.55;
 }
 
-/* スマホ：ヘッダー中央の空きスペース（ロゴと右ボタンの間）に配置 */
+/* スマホ：ロゴと右ボタン群の間、左寄りに配置（板書例ボタンと被らないように） */
 .cloud-1 {
   width: 50px;
   top: 6px;
-  left: 38%;
+  left: 26%;
 }
 
 .cloud-2 {
   width: 42px;
   top: 30px;
-  left: 52%;
+  left: 36%;
   right: auto;
 }
 
 /* タブレット */
 @media (min-width: 481px) {
-  .cloud-1 { width: 60px; left: 32%; top: 4px; }
-  .cloud-2 { width: 50px; left: 56%; top: 28px; }
+  .cloud-1 { width: 60px; left: 22%; top: 4px; }
+  .cloud-2 { width: 50px; left: 38%; top: 28px; }
 }
 
-/* PC：ロゴとPCナビの間の中央スペースに配置 */
+/* PC：ロゴとナビ群の間、左寄り */
 @media (min-width: 768px) {
-  .cloud-1 { width: 70px; left: 28%; top: 4px; }
-  .cloud-2 { width: 58px; left: 58%; top: 28px; }
+  .cloud-1 { width: 70px; left: 22%; top: 4px; }
+  .cloud-2 { width: 58px; left: 42%; top: 28px; }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -240,6 +240,31 @@ button {
   flex-grow: 0;
   height: 60px;
 }
+.mobile-pdf {
+  display: inline-flex !important;
+  align-items: center;
+  gap: 4px;
+  padding: 6px 10px;
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--color-sakura-deep);
+  background: #FFFFFF;
+  border: 1.5px solid var(--color-sakura-deep);
+  border-radius: 20px;
+  height: 32px;
+  box-sizing: border-box;
+  white-space: nowrap;
+  flex-shrink: 0;
+  text-decoration: none;
+  box-shadow: 0 1px 3px rgba(184, 95, 118, 0.15);
+  transition: background 0.2s, transform 0.1s;
+}
+
+.mobile-pdf:active {
+  transform: scale(0.97);
+  background: #FFF0F4;
+}
+
 .btn-mobile {
   padding: 6px 10px;
   font-size: 11px;
@@ -321,6 +346,27 @@ button {
     transition: opacity 0.2s;
   }
   .nav-pc a:hover { opacity: 0.7; }
+  .nav-pc .nav-pdf {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    padding: 8px 16px;
+    color: var(--color-sakura-deep);
+    font-weight: 600;
+    background: #FFFFFF;
+    border: 1.5px solid var(--color-sakura-deep);
+    border-radius: 22px;
+    text-decoration: none;
+    box-shadow: 0 2px 5px rgba(184, 95, 118, 0.15);
+    transition: background 0.2s, transform 0.1s;
+  }
+  .nav-pc .nav-pdf:hover {
+    background: #FFF0F4;
+    opacity: 1;
+  }
+  .nav-pc .nav-pdf:active {
+    transform: scale(0.97);
+  }
   .nav-pc .btn-header { font-size: 13px; padding: 9px 18px; }
   .mobile-controls { display: none !important; }
   .nav-mobile { display: none !important; }
